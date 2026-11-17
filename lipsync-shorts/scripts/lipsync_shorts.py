@@ -33,6 +33,12 @@ from pathlib import Path
 
 import numpy as np
 
+for _stream in (sys.stdout, sys.stderr):  # Windows 主控台預設 cp950，中文/符號會讓 print 當掉
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 ALIGN_SR = 8000          # 對齊用取樣率
 ALIGN_HOP = 80           # 10 ms 一格
 BEAT_SR = 11025

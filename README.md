@@ -60,5 +60,35 @@ python lipsync_shorts.py --song song.mp3 --take a.mp4 --take b.mp4 --start 62 --
 - 使用商業歌曲會有版權認領風險，詳見上一份說明。
 
 ## 安裝成 Claude Code skill
-把 `lipsync-shorts/` 資料夾複製到 `~/.claude/skills/lipsync-shorts/`（Windows：`%USERPROFILE%\.claude\skills\lipsync-shorts\`）。
-腳本在 `lipsync-shorts/scripts/lipsync_shorts.py`。
+
+### Windows（PowerShell）
+1. 安裝工具（已經有的會略過）：
+   ```powershell
+   winget install -e --id Python.Python.3.12
+   winget install -e --id Gyan.FFmpeg
+   winget install -e --id Git.Git
+   ```
+   裝完**關掉 PowerShell 重開**，讓新的 PATH 生效，再安裝 numpy：
+   ```powershell
+   python -m pip install numpy
+   ```
+   `python` 如果跳出 Microsoft Store，改用 `py -m pip install numpy`。
+2. 下載 skill 到 Claude Code 的 skills 資料夾：
+   ```powershell
+   git clone --depth 1 https://github.com/JoyceNien/claude-skill-lipsync-shorts "$env:TEMP\lipsync-skill"
+   New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills" | Out-Null
+   Copy-Item -Recurse -Force "$env:TEMP\lipsync-skill\lipsync-shorts" "$env:USERPROFILE\.claude\skills\"
+   Remove-Item -Recurse -Force "$env:TEMP\lipsync-skill"
+   ```
+3. 檢查：
+   ```powershell
+   ffmpeg -version
+   python -c "import numpy; print('numpy OK')"
+   python "$env:USERPROFILE\.claude\skills\lipsync-shorts\scripts\lipsync_shorts.py" --help
+   ```
+4. 重開 Claude Code，說「對嘴」測試。字幕字型請用 `--font "Microsoft JhengHei"`（微軟正黑體）。
+
+更新：重跑第 2 步即可。
+
+### macOS／Linux
+把 `lipsync-shorts/` 資料夾複製到 `~/.claude/skills/lipsync-shorts/`，並安裝 Python 3.9+、`pip install numpy`、ffmpeg。

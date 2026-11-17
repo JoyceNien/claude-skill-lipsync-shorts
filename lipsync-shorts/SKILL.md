@@ -21,6 +21,8 @@ description: 把「邊放原曲邊拍」的多個對嘴 take 自動剪成 YouTub
 
 先檢查環境：`ffmpeg -version`、`python -c "import numpy"`；字型用系統內有的中文字型
 （Windows `Microsoft JhengHei`、macOS `PingFang TC`、Linux `Noto Sans CJK TC`），用 `fc-list :lang=zh family` 確認。
+Windows：指令用 `python`（若被導到 Microsoft Store 就改用 `py`）；腳本路徑是 `~/.claude/skills/lipsync-shorts/scripts/lipsync_shorts.py`；
+**一定要加 `--font "Microsoft JhengHei"`**（預設字型 Windows 沒有，字幕會變方框）。
 
 ## 2. 先跑計畫，不出片
 
